@@ -213,13 +213,91 @@ ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
 plt.show()
 
+print("\n")
+
+# Create a grouped bar chart displaying total bill and total tips by day (make / female)
+# explode the largest segment for display / emphasis purposes
 
 
+# Female bill & tip data / day
+# Total Bill
+thurs_male_total = waiters_tips[(waiters_tips["day"]=="Thur") & (waiters_tips["sex"]=="Male")].total_bill.sum()
+fri_male_total = waiters_tips[(waiters_tips["day"]=="Fri") & (waiters_tips["sex"]=="Male")].total_bill.sum()
+sat_male_total = waiters_tips[(waiters_tips["day"]=="Sat") & (waiters_tips["sex"]=="Male")].total_bill.sum()
+sun_male_total = waiters_tips[(waiters_tips["day"]=="Sun") & (waiters_tips["sex"]=="Male")].total_bill.sum()
 
+# Total Tips
+thurs_male_tip = waiters_tips[(waiters_tips["day"]=="Thur") & (waiters_tips["sex"]=="Male")].tip.sum()
+fri_male_tip = waiters_tips[(waiters_tips["day"]=="Fri") & (waiters_tips["sex"]=="Male")].tip.sum()
+sat_male_tip = waiters_tips[(waiters_tips["day"]=="Sat") & (waiters_tips["sex"]=="Male")].tip.sum()
+sun_male_tip = waiters_tips[(waiters_tips["day"]=="Sun") & (waiters_tips["sex"]=="Male")].tip.sum()
 
+# Female bill & tip data / day
+# Total Bill
+thurs_female_total = waiters_tips[(waiters_tips["day"]=="Thur") & (waiters_tips["sex"]=="Female")].total_bill.sum()
+fri_female_total = waiters_tips[(waiters_tips["day"]=="Fri") & (waiters_tips["sex"]=="Female")].total_bill.sum()
+sat_female_total = waiters_tips[(waiters_tips["day"]=="Sat") & (waiters_tips["sex"]=="Female")].total_bill.sum()
+sun_female_total = waiters_tips[(waiters_tips["day"]=="Sun") & (waiters_tips["sex"]=="Female")].total_bill.sum()
 
+# Total Tips
+thurs_female_tip = waiters_tips[(waiters_tips["day"]=="Thur") & (waiters_tips["sex"]=="Female")].tip.sum()
+fri_female_tip = waiters_tips[(waiters_tips["day"]=="Fri") & (waiters_tips["sex"]=="Female")].tip.sum()
+sat_female_tip = waiters_tips[(waiters_tips["day"]=="Sat") & (waiters_tips["sex"]=="Female")].tip.sum()
+sun_female_tip = waiters_tips[(waiters_tips["day"]=="Sun") & (waiters_tips["sex"]=="Female")].tip.sum()
 
+# Total values lists
+# Male
+male_bills =[thurs_male_total, fri_male_total, sat_male_total, sun_male_total]
+male_tips =[thurs_male_tip, fri_male_tip, sat_male_tip, sun_male_tip]
+#Female
+female_bills =[thurs_female_total, fri_female_total, sat_female_total, sun_female_total]
+female_tips =[thurs_female_tip, fri_female_tip, sat_female_tip, sun_female_tip]
 
+# Create Bar Chart to examine total bills & tips / day
 
+# Men's spend
+labels = ['Thurs', 'Fri', 'Sat', 'Sun']
+men_bills = male_bills
+men_tips = male_tips
 
+x = np.arange(len(labels))  # the label locations
+width = 0.30  # the width of the bars
 
+fig, ax = plt.subplots()
+rects1 = ax.bar(x - width/3, men_bills, width, label='Total Bill')
+rects2 = ax.bar(x + width/2, men_tips, width, label='Total Tip')
+
+# Add some text for labels, title and custom x-axis tick labels, etc.
+ax.set_ylabel('Dollars')
+ax.set_title('Breakdown of Total Bill & Tip - Male Bill Payer')
+ax.set_xticks(x)
+ax.set_xticklabels(labels)
+ax.legend()
+
+fig.tight_layout()
+
+plt.show()
+
+# Female Spend
+
+labels = ['Thurs', 'Fri', 'Sat', 'Sun']
+women_bills = female_bills
+women_tips = female_tips
+
+x = np.arange(len(labels))  # the label locations
+width = 0.30  # the width of the bars
+
+fig, ax = plt.subplots()
+rects1 = ax.bar(x - width/3, women_bills, width, label='Total Bill')
+rects2 = ax.bar(x + width/2, women_tips, width, label='Total Tip')
+
+# Add some text for labels, title and custom x-axis tick labels, etc.
+ax.set_ylabel('Dollars')
+ax.set_title('Breakdown of Total Bill & Tip - Female Bill Payer')
+ax.set_xticks(x)
+ax.set_xticklabels(labels)
+ax.legend()
+
+fig.tight_layout()
+
+plt.show()
