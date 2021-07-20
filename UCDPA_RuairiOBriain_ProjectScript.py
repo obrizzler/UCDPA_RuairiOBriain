@@ -95,8 +95,36 @@ else:
     print("Duplicates have been identified and removed from this dataframe.")
 
 print("\n")
-#Create subset dataframes to facilitate segmentation and analysis
+"""
+Create subset dataframes to facilitate segmentation and analysis
+Create the following subsets
+Billpayer by gender: female_bill payers / male_billpayers
+Bill payer by gender & smoking status:
+  female_smokers
+  female_nonsmokers
+  male_smokers
+  male_nonsmokers
+"""
 
+# Create subset dataframe: Female Billpayers
+print("Female Bill Payers Table")
+female_billpayers = waiters_tips[(waiters_tips["sex"]=="Female")]
+print(female_billpayers.head())
+# compare shape
+print(waiters_tips.shape, female_billpayers.shape)
+
+print("\n")
+
+# Create subset dataframe: Male Billpayers
+print("Male Bill Payers Table")
+male_billpayers = waiters_tips[(waiters_tips["sex"]=="Male")]
+print(male_billpayers.head())
+# compare shape
+print(waiters_tips.shape, male_billpayers.shape)
+
+print("\n")
+
+# including an additional condition to further segment restaurant customers
 # Create subset dataframe: Female Smokers
 print("Female Smokers Table")
 female_smokers = waiters_tips[(waiters_tips["sex"]=="Female") & (waiters_tips["smoker"]=="Yes")]
@@ -147,15 +175,43 @@ print(all_nonsmokers.head())
 print(all_nonsmokers.shape)
 print(waiters_tips.shape, all_nonsmokers.shape)
 
+print("\n")
 
+# create lists from each dataframe column to aid visualisation
+bill_list = waiters_tips.total_bill.values.tolist()
+tip_list = waiters_tips.tip.values.tolist()
+gender_list = waiters_tips.sex.values.tolist()
+smoker_list = waiters_tips.smoker.values.tolist()
+day_list = waiters_tips.day.values.tolist()
+time_list = waiters_tips.time.values.tolist()
+
+
+malesmoker_total = len(male_smokers)
+male_nonsmoker_total = len(male_nonsmokers)
+femalesmoker_total = len(female_smokers)
+female_nonsmoker_total = len(female_nonsmokers)
+smoker_values = [male_nonsmoker_total, malesmoker_total, femalesmoker_total, female_nonsmoker_total]
 
 
 # Visualisaton - Matplotlib library with .pyplot functionality already imported as plt.
-# Add command to keep graphs from opening in a new window and instead appear in line with code
- # matplotlib inline
 
+#Create plot area
+fig,ax = plt.subplots()
+plt.show()
 
+# Create a pie chart displaying the proportion of bill_payers by gender and smoking status
+# explode the largest segment for display / emphasis purposes
 
+labels = 'Male Non-Smokers', 'Male Smokers', 'Female Smokers', 'Female Non-Smokers'
+sizes = smoker_values
+explode = (0.1, 0, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+
+fig1, ax1 = plt.subplots()
+ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90)
+ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+plt.show()
 
 
 
