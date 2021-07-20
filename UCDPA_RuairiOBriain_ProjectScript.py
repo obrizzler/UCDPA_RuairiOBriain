@@ -153,6 +153,7 @@ print(waiters_tips.shape, male_smokers.shape)
 print("\n")
 
 # Create subset dataframe: Male Non-Smokers
+print("Male Non-Smokers Table")
 male_nonsmokers = waiters_tips[(waiters_tips["sex"]=="Male") & (waiters_tips["smoker"]=="No")]
 print(male_nonsmokers.head())
 print(male_nonsmokers.shape)
@@ -177,7 +178,7 @@ print(waiters_tips.shape, all_nonsmokers.shape)
 
 print("\n")
 
-# create lists from each dataframe column to aid visualisation
+# create lists from each dataframe column to aid pie chart visualisation
 bill_list = waiters_tips.total_bill.values.tolist()
 tip_list = waiters_tips.tip.values.tolist()
 gender_list = waiters_tips.sex.values.tolist()
@@ -211,6 +212,8 @@ ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
         shadow=True, startangle=90)
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
+ax1.set_title('Breakdown of Bill Payer Gender / Smoker Status')
+
 plt.show()
 
 print("\n")
@@ -218,6 +221,7 @@ print("\n")
 # Create a grouped bar chart displaying total bill and total tips by day (make / female)
 # explode the largest segment for display / emphasis purposes
 
+# create lists from each dataframe column to aid visualisation
 
 # Female bill & tip data / day
 # Total Bill
