@@ -73,6 +73,7 @@ print("Time: ", waiters_tips.time.unique())
 
 print("\n")
 # examine data - search for null values
+print("Review for any blanks: ")
 null_values = waiters_tips.isnull()
 print(null_values)
 # count null values
@@ -93,9 +94,65 @@ if waiters_tips.shape == removed_duplicates.shape:
 else:
     print("Duplicates have been identified and removed from this dataframe.")
 
+print("\n")
+#Create subset dataframes to facilitate segmentation and analysis
+
+# Create subset dataframe: Female Smokers
+print("Female Smokers Table")
+female_smokers = waiters_tips[(waiters_tips["sex"]=="Female") & (waiters_tips["smoker"]=="Yes")]
+print(female_smokers.head())
+# compare shape
+print(waiters_tips.shape, female_smokers.shape)
+
+print("\n")
+
+# Create subset dataframe: Female Non-Smokers
+print("Female Non Smokers Table")
+female_nonsmokers = waiters_tips[(waiters_tips["sex"]=="Female") & (waiters_tips["smoker"]=="No")]
+print(female_nonsmokers.head())
+print(female_nonsmokers.shape)
+print(waiters_tips.shape, female_nonsmokers.shape)
+
+print("\n")
+
+# Create subset dataframe: Male Smokers
+print("Male Smokers Table")
+male_smokers = waiters_tips[(waiters_tips["sex"]=="Male") & (waiters_tips["smoker"]=="Yes")]
+print(male_smokers.head())
+print(male_smokers.shape)
+print(waiters_tips.shape, male_smokers.shape)
+
+print("\n")
+
+# Create subset dataframe: Male Non-Smokers
+male_nonsmokers = waiters_tips[(waiters_tips["sex"]=="Male") & (waiters_tips["smoker"]=="No")]
+print(male_nonsmokers.head())
+print(male_nonsmokers.shape)
+print(waiters_tips.shape, male_nonsmokers.shape)
+
+print("\n")
+
+# Concatenate dataframes to create subset dataframes: 'All Smokers' and 'Non-Smokers'
+print("All Smokers Table")
+all_smokers = pd.concat([female_smokers, male_smokers], axis = 0, ignore_index = True)
+print(all_smokers.head())
+print(all_smokers.shape)
+print(waiters_tips.shape, all_smokers.shape)
+
+print("\n")
+
+print("All Non-Smokers Table")
+all_nonsmokers = pd.concat([female_nonsmokers, male_nonsmokers], axis = 0, ignore_index = True)
+print(all_nonsmokers.head())
+print(all_nonsmokers.shape)
+print(waiters_tips.shape, all_nonsmokers.shape)
+
+
+
+
 # Visualisaton - Matplotlib library with .pyplot functionality already imported as plt.
 # Add command to keep graphs from opening in a new window and instead appear in line with code
-%matplotlib inline
+ # matplotlib inline
 
 
 
